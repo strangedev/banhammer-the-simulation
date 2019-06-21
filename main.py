@@ -3,14 +3,16 @@
 from simulate import simulate, show_ticks
 from plot import plot_ticks
 
+import funstuffs
+
 def decay(score, dt, time):
-    return -1
+    return -funstuffs.exp_decay(0.066)(score)
 
 def incorrectly_timed_leet(score, dt, time):
-    return 1
+    return funstuffs.bad_factory(1, y_scale=1.5)(score)
 
 def interrupted_leet(score, dt, time):
-    return 1
+    return funstuffs.bad_factory(1, y_scale=0.75)(score)
 
 def predicate_is_leet_time(score, dt, time):
     return time % 1440 == 100
@@ -18,18 +20,18 @@ def predicate_is_leet_time(score, dt, time):
 
 SCHEDULED_EVENTS = [
     {
-        "interval": 1440,  # 1 day
+        "interval": 100,  # 1 day
         "f": decay
     }
 ]
 
 RANDOM_EVENTS = [
     {
-        "p": 0.01,  # 1% chance of event happening
+        "p": 0.0003,  # 1% chance of event happening
         "f": incorrectly_timed_leet
     },
     {
-        "p": 0.05,
+        "p": 0.005,
         "f": interrupted_leet,
         "only_if": [
             predicate_is_leet_time
@@ -38,7 +40,7 @@ RANDOM_EVENTS = [
 ]
 
 def main():
-	ticks =  simulate(2000, 1, RANDOM_EVENTS, SCHEDULED_EVENTS, 1)
+	ticks =  simulate(50000, 1, RANDOM_EVENTS, SCHEDULED_EVENTS, 1)
 	show_ticks(ticks)
 	plot_ticks(ticks)
 
