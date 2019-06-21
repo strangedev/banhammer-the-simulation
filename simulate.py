@@ -17,15 +17,18 @@ def tick(random_events, scheduled_events, score: float, dt: int, t: int):
             
     for event in random_events:  # run random events
         if "only_if" in event:
-            for predicate in event["only_if"]:
-                if predicate(score, dt, t) and random.uniform(0, 1) >= event["p"]:
-                    event_function = event["f"]
-                    delta_score = event_function(score, dt, t)
-                    events_occurred.append({
-                        "id": event_function.__name__,
-                        "delta_score": delta_score
-                    })
-                    score += delta_score
+            if not all(pred(score, dt, t) for pred in event["only_if"]):
+                continue
+
+        if random.uniform(0, 1) <= event["p"]:
+            event_function = event["f"]
+            delta_score = event_function(score, dt, t)
+            events_occurred.append({
+                "id": event_function.__name__,
+                "delta_score": delta_score
+            })
+            score += delta_score
+
         if score < 0:
             score = 0
         
