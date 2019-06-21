@@ -47,7 +47,7 @@ def simulate(n_ticks, dt_tick, random_events, scheduled_events, bad: int):
         })
     return ticks
 
-def show_ticks(ticks):
+def prune_ticks(ticks):
     previous = None
     same_same_flag = False
     for i in range(len(ticks)):
@@ -55,12 +55,12 @@ def show_ticks(ticks):
 
         if previous:
             if previous["score"] == current["score"]:
-                if not same_same_flag:
-                    print("  [...]")
-                same_same_flag = True
                 continue
-            else:
-                same_same_flag = False
 
         previous = current
-        print(current)
+        yield current
+
+
+def show_ticks(ticks):
+    for tick in prune_ticks(ticks):
+        print(tick)
