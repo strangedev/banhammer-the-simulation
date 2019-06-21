@@ -6,7 +6,7 @@ from plot import plot_ticks
 import funstuffs
 
 def decay(score, dt, time):
-    return -funstuffs.exp_decay(0.045)(score)
+    return -funstuffs.log_decay(0.045)(score)
 
 def incorrectly_timed_leet(score, dt, time):
     return funstuffs.bad_factory(1, y_scale=0.5)(score)

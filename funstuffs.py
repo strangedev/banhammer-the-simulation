@@ -6,7 +6,7 @@ def bad_factory(decay_factor, y_scale=1, x_scale=1):
 	return bad3
 
 
-def exp_decay(scale, offset=1):
+def log_decay(scale, offset=1):
 	def f(x):
 		return math.log(x + offset) * scale
 	return f
