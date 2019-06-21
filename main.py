@@ -16,6 +16,9 @@ def interrupted_leet(score, dt, time):
 
 def predicate_is_leet_time(score, dt, time):
     return time % 1440 == 100
+
+def predicate_is_allowed_to_leet(score, dt, time):
+	return score < 1
     
 
 SCHEDULED_EVENTS = [
@@ -34,7 +37,8 @@ RANDOM_EVENTS = [
         "p": 0.3,
         "f": interrupted_leet,
         "only_if": [
-            predicate_is_leet_time
+            predicate_is_leet_time,
+            predicate_is_allowed_to_leet
         ]
     }
 ]
