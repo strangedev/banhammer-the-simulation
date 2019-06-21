@@ -6,13 +6,13 @@ from plot import plot_ticks
 import funstuffs
 
 def decay(score, dt, time):
-    return -funstuffs.exp_decay(0.066)(score)
+    return -funstuffs.exp_decay(0.045)(score)
 
 def incorrectly_timed_leet(score, dt, time):
-    return funstuffs.bad_factory(1, y_scale=1.5)(score)
+    return funstuffs.bad_factory(1, y_scale=0.5)(score)
 
 def interrupted_leet(score, dt, time):
-    return funstuffs.bad_factory(1, y_scale=0.75)(score)
+    return funstuffs.bad_factory(1, y_scale=1.5)(score)
 
 def predicate_is_leet_time(score, dt, time):
     return time % 1440 == 100
@@ -27,11 +27,11 @@ SCHEDULED_EVENTS = [
 
 RANDOM_EVENTS = [
     {
-        "p": 0.0003,  # 1% chance of event happening
+        "p": 0.0006,  # 1% chance of event happening
         "f": incorrectly_timed_leet
     },
     {
-        "p": 0.005,
+        "p": 0.3,
         "f": interrupted_leet,
         "only_if": [
             predicate_is_leet_time
