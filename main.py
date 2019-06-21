@@ -1,6 +1,7 @@
 #!/bin/python
 
 from simulate import simulate, show_ticks
+from plot import plot_ticks
 
 def decay(score, dt, time):
     return -1
@@ -39,6 +40,7 @@ RANDOM_EVENTS = [
 def main():
 	ticks =  simulate(2000, 1, RANDOM_EVENTS, SCHEDULED_EVENTS, 1)
 	show_ticks(ticks)
+	plot_ticks(ticks)
 
 if __name__ == '__main__':
 	main()
