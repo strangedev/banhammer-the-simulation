@@ -48,6 +48,9 @@ def simulate(n_ticks, dt_tick, random_events, scheduled_events, bad: int):
     return ticks
 
 def prune_ticks(ticks):
+    """
+    Generator yielding only those ticks, which have events in them.
+    """
     previous = None
     same_same_flag = False
     for i in range(len(ticks)):
@@ -61,6 +64,9 @@ def prune_ticks(ticks):
         yield current
 
 
-def show_ticks(ticks):
+def show_events(ticks):
+    """
+    Print those ticks which have events in them.
+    """
     for tick in prune_ticks(ticks):
         print(tick)

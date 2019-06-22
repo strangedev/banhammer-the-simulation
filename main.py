@@ -45,7 +45,7 @@ RANDOM_EVENTS = [
 
 def main():
 	ticks =  simulate(50000, 1, RANDOM_EVENTS, SCHEDULED_EVENTS, 1)
-	show_ticks(ticks)
+	show_events(ticks)
 	plot_ticks(ticks)
 
 if __name__ == '__main__':
