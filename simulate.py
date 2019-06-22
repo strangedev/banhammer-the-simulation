@@ -81,7 +81,8 @@ def simulate(n_ticks, dt_tick, random_events, scheduled_events, bad):
         })
     return ticks
 
-def prune_ticks(ticks):
+
+def i_prune_ticks(ticks):
     """
     Generator yielding only those ticks, which have events in them.
     """
@@ -101,5 +102,5 @@ def show_events(ticks):
     """
     Print those ticks which have events in them.
     """
-    for tick in prune_ticks(ticks):
+    for tick in i_prune_ticks(ticks):
         print(tick)

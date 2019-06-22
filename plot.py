@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from simulate import prune_ticks
+from simulate import i_prune_ticks
+
 
 def plot_ticks(ticks):
     """
     Takes a series of ticks (not pruned!) and plots them.
     """
-    eventful_ticks = list(prune_ticks(ticks))
+    eventful_ticks = list(i_prune_ticks(ticks))
 
     def tick_contains_event(tick, event_name):
         return any([e["id"] == event_name for e in tick["events"]])
