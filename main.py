@@ -15,7 +15,7 @@ def interrupted_leet(score, dt, time):
     return funstuffs.sigmoid_like_factory(decay_factor=1, y_scale=1.5)(score)
 
 def predicate_is_leet_time(score, dt, time):
-    return time % 1440 == 100
+    return time % 1440 == 817  # 13*60 + 37 == 817
 
 def predicate_is_allowed_to_leet(score, dt, time):
 	return score < 1
