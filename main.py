@@ -1,18 +1,18 @@
 #!/bin/python
 
-from simulate import simulate, show_ticks
+from simulate import simulate, show_events
 from plot import plot_ticks
 
 import funstuffs
 
 def decay(score, dt, time):
-    return -funstuffs.log_decay(0.045)(score)
+    return -funstuffs.log_decay_factory(y_scale=0.045)(score)
 
 def incorrectly_timed_leet(score, dt, time):
-    return funstuffs.bad_factory(1, y_scale=0.5)(score)
+    return funstuffs.sigmoid_like_factory(decay_factor=1, y_scale=0.5)(score)
 
 def interrupted_leet(score, dt, time):
-    return funstuffs.bad_factory(1, y_scale=1.5)(score)
+    return funstuffs.sigmoid_like_factory(decay_factor=1, y_scale=1.5)(score)
 
 def predicate_is_leet_time(score, dt, time):
     return time % 1440 == 100
