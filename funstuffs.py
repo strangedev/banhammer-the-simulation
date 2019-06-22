@@ -1,3 +1,7 @@
+"""
+Module for mathematical functions
+"""
+
 import math
 
 def sigmoid_like_factory(decay_factor=1, y_scale=1, x_scale=1):

@@ -1,9 +1,24 @@
 import random
 
 
-def tick(random_events, scheduled_events, score: float, dt: int, t: int):
+def tick(random_events, scheduled_events, score, dt, t):
+    """
+    Simulate a single tick.
+
+    Arguments:
+        random_events: list of events that may happen randomly every tick
+        scheduled_events: list of reoccuring events
+        score: score previous to the tick
+        dt: how long the tick is (timewise)
+        t: time elapsed before the tick
+
+    Returns:
+        Tuple:
+            - The new score
+            - List of events that occurred in the tick
+    """
     events_occurred = []
-    
+
     for job in scheduled_events:  # run scheduled jobs
         if t % job["interval"] == 0:
             event_function = job["f"]
@@ -13,8 +28,7 @@ def tick(random_events, scheduled_events, score: float, dt: int, t: int):
                 "delta_score": delta_score
             })
             score += delta_score
-            
-            
+
     for event in random_events:  # run random events
         if "only_if" in event:
             if not all(pred(score, dt, t) for pred in event["only_if"]):
@@ -29,17 +43,37 @@ def tick(random_events, scheduled_events, score: float, dt: int, t: int):
             })
             score += delta_score
 
-        if score < 0:
+        if score < 0:  # no positive karma, only punishments :(
             score = 0
-        
+
     return score, events_occurred
 
 
-def simulate(n_ticks, dt_tick, random_events, scheduled_events, bad: int):
+def simulate(n_ticks, dt_tick, random_events, scheduled_events, bad):
+    """
+    Simulate n_ticks steps.
+
+    Arguments:
+        n_ticks: number of ticks to simulate
+        dt_tick: how long one tick is (timewise)
+        random_events: list of events that may happen randomly every tick
+        scheduled_events: list of reoccuring events
+        bad: score threshold for penalties
+
+    Returns:
+        a list of all ticks simulated.
+    """
     score = 0
     ticks = []
     for tick_count in range(n_ticks):
-        score, events_occurred = tick(random_events, scheduled_events, score, dt_tick, tick_count)
+        time_passed = dt_tick * tick_count
+        score, events_occurred = tick(
+            random_events,
+            scheduled_events,
+            score,
+            dt_tick,
+            time_passed
+        )
         ticks.append({
             "time": tick_count,
             "score": score,
@@ -52,7 +86,6 @@ def prune_ticks(ticks):
     Generator yielding only those ticks, which have events in them.
     """
     previous = None
-    same_same_flag = False
     for i in range(len(ticks)):
         current = ticks[i]
 
