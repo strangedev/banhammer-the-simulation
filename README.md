@@ -1,4 +1,4 @@
-# Simulation of score based moderation for chat groups
+# Simulation of score based penalties for chat groups
 
 Simulates a running "naughtiness" score for users. Bad actions raise the score.
 The score decays naturally over time.
@@ -13,11 +13,15 @@ People with a score larger than 1 are penalized.
 
 #### Running
 
-`./main.py/`
+Install python dependencies by `pip install -r requirements.txt`.
+
+Then run `./main.py`.
 
 Make sure to `chmod +x`.
 
-You can parameterize the simulation in `main.py`. Take a look at the `RANDOM_EVENTS` and `SCHEDULED_EVENTS`.
+You can parameterize the simulation in `main.py`.
+
+Take a look at the `RANDOM_EVENTS` and `SCHEDULED_EVENTS`.
 
 ##### Pretty Pictures
 

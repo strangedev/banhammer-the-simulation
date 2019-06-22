@@ -23,14 +23,14 @@ def predicate_is_allowed_to_leet(score, dt, time):
 
 SCHEDULED_EVENTS = [
     {
-        "interval": 100,  # 1 day
+        "interval": 100,  # 100 minutes
         "f": decay
     }
 ]
 
 RANDOM_EVENTS = [
     {
-        "p": 0.0006,  # 1% chance of event happening
+        "p": 0.0006,  # .06% chance of event happening
         "f": incorrectly_timed_leet
     },
     {
